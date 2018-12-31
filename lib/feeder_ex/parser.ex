@@ -1,8 +1,9 @@
 defmodule FeederEx.Parser do
-
-  def event({:feed,
-            {:feed, author, id, image, language, link, subtitle, summary, title, updated, url}},
-            {_, entries}) do
+  def event(
+        {:feed,
+         {:feed, author, id, image, language, link, subtitle, summary, title, updated, url, type}},
+        {_, entries}
+      ) do
     feed = %FeederEx.Feed{
       author: undefined_to_nil(author),
       id: undefined_to_nil(id),
@@ -13,14 +14,19 @@ defmodule FeederEx.Parser do
       summary: undefined_to_nil(summary),
       title: undefined_to_nil(title),
       updated: undefined_to_nil(updated),
-      url: undefined_to_nil(url)
+      url: undefined_to_nil(url),
+      type: undefined_to_nil(type)
     }
+
     {feed, entries}
   end
 
-  def event({:entry,
-            {:entry, author, categories, duration, enclosure, id, image, link, subtitle, summary, title, updated}},
-            {feed, entries}) do
+  def event(
+        {:entry,
+         {:entry, author, categories, duration, enclosure, id, image, link, subtitle, summary,
+          title, updated, season}},
+        {feed, entries}
+      ) do
     entry = %FeederEx.Entry{
       author: undefined_to_nil(author),
       categories: undefined_to_list(categories),
@@ -32,12 +38,15 @@ defmodule FeederEx.Parser do
       subtitle: undefined_to_nil(subtitle),
       summary: undefined_to_nil(summary),
       title: undefined_to_nil(title),
-      updated: undefined_to_nil(updated)
+      updated: undefined_to_nil(updated),
+      season: undefined_to_nil(season)
     }
+
     {feed, [entry | entries]}
   end
 
   def event(:endFeed, {nil, entries}), do: %FeederEx.Feed{entries: entries}
+
   def event(:endFeed, {feed, entries}) do
     %{feed | entries: Enum.reverse(entries)}
   end
@@ -49,6 +58,7 @@ defmodule FeederEx.Parser do
   defp undefined_to_nil(value), do: value
 
   defp parse_enclosure(:undefined), do: nil
+
   defp parse_enclosure({:enclosure, url, size, type}) do
     %FeederEx.Enclosure{
       url: undefined_to_nil(url),
@@ -56,5 +66,4 @@ defmodule FeederEx.Parser do
       type: undefined_to_nil(type)
     }
   end
-
 end

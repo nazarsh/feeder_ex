@@ -32,6 +32,7 @@ iex> Enum.map feed.entries, fn(entry) -> entry.title end
 - title
 - updated
 - url
+- type
 - entries
 
 ### FeederEx.Entry
@@ -47,6 +48,7 @@ iex> Enum.map feed.entries, fn(entry) -> entry.title end
 - summary
 - title
 - updated
+- season
 
 
 ### FeederEx.Enclosure

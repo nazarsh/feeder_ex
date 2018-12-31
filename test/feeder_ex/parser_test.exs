@@ -13,20 +13,23 @@ defmodule FeederEx.ParserExTest do
       "the summary",
       "the title",
       "the updated date",
-      "the feed url"
+      "the feed url",
+      "the type"
     }
+
     {feed, :entries} = FeederEx.Parser.event({:feed, event_data}, {nil, :entries})
 
-    assert feed.author   == "the author"
-    assert feed.id       == "the id"
-    assert feed.image    == "the image"
+    assert feed.author == "the author"
+    assert feed.id == "the id"
+    assert feed.image == "the image"
     assert feed.language == "the language"
-    assert feed.link     == "the link"
+    assert feed.link == "the link"
     assert feed.subtitle == "the subtitle"
-    assert feed.summary  == "the summary"
-    assert feed.title    == "the title"
-    assert feed.updated  == "the updated date"
-    assert feed.url      == "the feed url"
+    assert feed.summary == "the summary"
+    assert feed.title == "the title"
+    assert feed.updated == "the updated date"
+    assert feed.url == "the feed url"
+    assert feed.type == "the type"
   end
 
   test "entry event without enclosure" do
@@ -42,22 +45,26 @@ defmodule FeederEx.ParserExTest do
       "the subtitle",
       "the summary",
       "the title",
-      "the updated date"
+      "the updated date",
+      "the season"
     }
+
     entries = [:entry_1, :entry_2]
+
     {:feed, [entry, :entry_1, :entry_2]} =
       FeederEx.Parser.event({:entry, event_data}, {:feed, entries})
 
-    assert entry.author    == "the author"
-    assert entry.duration  == "the duration"
+    assert entry.author == "the author"
+    assert entry.duration == "the duration"
     assert entry.enclosure == nil
-    assert entry.id        == "the id"
-    assert entry.image     == "the image"
-    assert entry.link      == "the link"
-    assert entry.subtitle  == "the subtitle"
-    assert entry.summary   == "the summary"
-    assert entry.title     == "the title"
-    assert entry.updated   == "the updated date"
+    assert entry.id == "the id"
+    assert entry.image == "the image"
+    assert entry.link == "the link"
+    assert entry.subtitle == "the subtitle"
+    assert entry.summary == "the summary"
+    assert entry.title == "the title"
+    assert entry.updated == "the updated date"
+    assert entry.season == "the season"
   end
 
   test "entry event with enclosure" do
@@ -73,13 +80,16 @@ defmodule FeederEx.ParserExTest do
       "the subtitle",
       "the summary",
       "the title",
-      "the updated date"
+      "the updated date",
+      "the season"
     }
-    {:feed, [entry]} =
-      FeederEx.Parser.event({:entry, event_data}, {:feed, []})
 
-    assert entry.enclosure == %FeederEx.Enclosure{url: "http://www.example.com/enclosure.mp3",
-                                                 size: "123456", type: "audio/mpeg"}
+    {:feed, [entry]} = FeederEx.Parser.event({:entry, event_data}, {:feed, []})
+
+    assert entry.enclosure == %FeederEx.Enclosure{
+             url: "http://www.example.com/enclosure.mp3",
+             size: "123456",
+             type: "audio/mpeg"
+           }
   end
-
 end

@@ -12,6 +12,7 @@
       <generator>Weblog Editor 2.0</generator>
       <managingEditor>editor@example.com</managingEditor>
       <webMaster>webmaster@example.com</webMaster>
+      <itunes:type>episodic</itunes:type>
       <item>
          <title>Star City</title>
          <category><![CDATA[News]]></category>
@@ -20,6 +21,7 @@
          <description>How do Americans get ready to work with Russians aboard the International Space Station? They take a crash course in culture, language and protocol at Russia's &lt;a href="http://howe.iki.rssi.ru/GCTC/gctc_e.htm"&gt;Star City&lt;/a&gt;.</description>
          <pubDate>Tue, 03 Jun 2003 09:39:21 GMT</pubDate>
          <guid>http://liftoff.msfc.nasa.gov/2003/06/03.html#item573</guid>
+         <itunes:season>1</itunes:season>
       </item>
       <item>
          <category><![CDATA[News]]></category>
